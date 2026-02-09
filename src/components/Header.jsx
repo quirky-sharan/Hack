@@ -1,0 +1,79 @@
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+
+export default function Header() {
+  const [show, setShow] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setTimeout(() => setShow(true), 100)
+  }, [])
+
+  return (
+    <header className="fixed top-0 left-0 w-full z-50 px-6 pt-6">
+      
+      {/* glow */}
+      <div className="absolute inset-0 flex justify-center pointer-events-none">
+        <div className="w-[500px] h-[120px] bg-green-500/20 blur-[120px] rounded-full" />
+      </div>
+
+      {/* glass navbar */}
+      <div
+        className={`max-w-7xl mx-auto transition-all duration-700 ${
+          show ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0"
+        }`}
+      >
+        <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl px-8 py-4 flex items-center justify-between">
+          
+          {/* LEFT — Logo */}
+          <div
+            onClick={() => navigate("/")}
+            className="flex items-center gap-3 cursor-pointer"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Green_circle.svg"
+              className="w-9 h-9"
+            />
+            <span className="text-white font-semibold text-lg">
+              DonateBridge
+            </span>
+          </div>
+
+          {/* CENTER — links */}
+          <div className="hidden md:flex gap-10 text-gray-300 text-sm">
+            <span className="hover:text-green-400 transition cursor-pointer">
+              Home
+            </span>
+            <span className="hover:text-green-400 transition cursor-pointer">
+              Donate
+            </span>
+            <span className="hover:text-green-400 transition cursor-pointer">
+              Why us ?
+            </span>
+            <span className="hover:text-green-400 transition cursor-pointer">
+              Contact
+            </span>
+          </div>
+
+          {/* RIGHT — auth */}
+          <div className="flex gap-3">
+            <button
+              onClick={() => navigate("/login")}
+              className="text-gray-300 hover:text-white transition"
+            >
+              Login
+            </button>
+
+            <button
+              onClick={() => navigate("/signup")}
+              className="bg-green-500 text-black px-4 py-2 rounded-lg font-semibold hover:scale-105 transition"
+            >
+              Sign up
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+  )
+}
